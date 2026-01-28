@@ -1,0 +1,80 @@
+# =========================
+# .NET / Visual Studio
+# =========================
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]ny[Cc]pu/
+[Ll]og/
+
+# Rider / VS Code / IDEs
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# =========================
+# ASP.NET Core
+# =========================
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+!appsettings.json
+
+# Secrets
+secrets.json
+*.pfx
+
+# HTTPS dev certs
+*.cer
+*.crt
+*.key
+
+# =========================
+# EF Core / Database
+# =========================
+*.db
+*.db-shm
+*.db-wal
+*.mdf
+*.ldf
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+Logs/
+
+# =========================
+# Publish output
+# =========================
+publish/
+wwwroot/
+
+# =========================
+# Test artifacts
+# =========================
+TestResults/
+*.trx
+coverage/
+coverage.*
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Packages
+# =========================
+.nuget/
+packages/
