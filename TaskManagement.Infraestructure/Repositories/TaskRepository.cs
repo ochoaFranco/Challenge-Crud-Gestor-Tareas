@@ -30,6 +30,9 @@ namespace TaskManagement.Infraestructure.Repositories
         public async Task<TaskItem?> GetTaskById(Guid id) => 
             await _context.Tasks.FirstOrDefaultAsync(t => (t.Id == id) && t.IsActive);
 
+        public async Task<TaskItem?> GetTaskByTitle(string title) =>
+            await _context.Tasks.FirstOrDefaultAsync(t => (t.Title == title));
+
         public IQueryable<TaskItem> GetTasks() => _context.Tasks.AsQueryable();
 
         public async Task<TaskItem> UpdateTask(TaskItem task) 

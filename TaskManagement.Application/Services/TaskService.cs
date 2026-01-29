@@ -3,6 +3,7 @@ using TaskManagement.Application.DTOs.Task;
 using TaskManagement.Application.Interfaces.Repositories;
 using TaskManagement.Application.Interfaces.Services;
 using TaskManagement.Domain;
+using TaskManagement.Domain.Exceptions;
 
 namespace TaskManagement.Application.Services
 {
@@ -17,6 +18,11 @@ namespace TaskManagement.Application.Services
 
         public async Task<TaskResponseDTO> CreateTask(TaskRequestDTO taskRequestDTO)
         {
+            var existingTask = await _repository.GetTaskByTitle(taskRequestDTO.Title.ToLower().Trim());
+            
+            if  (existingTask != null)
+                throw new DuplicatedTaskTitleException("Title must be unique");
+            
             var task = new TaskItem
             {
                 Id = Guid.NewGuid(),
@@ -97,8 +103,13 @@ namespace TaskManagement.Application.Services
             if (exists is null)
                 throw new KeyNotFoundException("Task does not exist");
 
-            exists.Title = taskRequestDTO.Title;
-            exists.Description = taskRequestDTO.Description;
+            var isDuplicatedName = await _repository.GetTaskByTitle(taskRequestDTO.Title.ToLower().Trim());
+            
+            if (isDuplicatedName != null)
+                throw new DuplicatedTaskTitleException("Title must be unique");
+
+            exists.Title = taskRequestDTO.Title.ToLower().Trim();
+            exists.Description = taskRequestDTO.Description?.ToLower().Trim(); 
             exists.IsCompleted = taskRequestDTO.IsCompleted;
             exists.UpdatedAt = DateTime.UtcNow;
             exists.IsActive = taskRequestDTO.IsActive;

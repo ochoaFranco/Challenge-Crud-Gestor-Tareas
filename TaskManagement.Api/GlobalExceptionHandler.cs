@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
+using System.Net;
+using TaskManagement.Domain.Exceptions;
 
 namespace TaskManagement.Api
 {
@@ -12,9 +14,13 @@ namespace TaskManagement.Api
             var (status, title, detail) = exception switch
             {
                 KeyNotFoundException =>
-                (404, "Not Found", exception.Message),
+                    (StatusCodes.Status404NotFound, "Not Found", exception.Message),
+                
+                DuplicatedTaskTitleException =>
+                    (StatusCodes.Status409Conflict, "Conflict", exception.Message),
+
                 _ =>
-                (500, "Internal Server Error", "An unexpected error occurred.")
+                    (StatusCodes.Status500InternalServerError, "Internal Server Error", "An unexpected error occurred.")
             };
 
             await Results.Problem(
