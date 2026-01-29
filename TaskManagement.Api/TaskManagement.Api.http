@@ -1,6 +1,98 @@
 @TaskManagement.Api_HostAddress = http://localhost:5216
+@taskId = cf85db6d-ffdd-4037-9d23-48ce8ffe19dd
 
-GET {{TaskManagement.Api_HostAddress}}/weatherforecast/
+### --------------------------------------------------
+### Create task (SUCCESS)
+POST {{TaskManagement.Api_HostAddress}}/tasks
+Content-Type: application/json
 Accept: application/json
 
-###
+{
+  "title": "first task",
+  "description": "my first task"
+}
+
+### --------------------------------------------------
+### Create task (VALIDATION ERROR - missing title)
+POST {{TaskManagement.Api_HostAddress}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "description": "this should fail"
+}
+
+### --------------------------------------------------
+### Create task (BUSINESS RULE - duplicated title)
+POST {{TaskManagement.Api_HostAddress}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "first task",
+  "description": "duplicate title"
+}
+
+### --------------------------------------------------
+### Get all tasks
+GET {{TaskManagement.Api_HostAddress}}/tasks
+Accept: application/json
+
+### --------------------------------------------------
+### Get task by id (SUCCESS)
+GET {{TaskManagement.Api_HostAddress}}/tasks/{{taskId}}
+Accept: application/json
+
+### --------------------------------------------------
+### Get task by id (NOT FOUND)
+GET {{TaskManagement.Api_HostAddress}}/tasks/00000000-0000-0000-0000-000000000000
+Accept: application/json
+
+### --------------------------------------------------
+### Update task (SUCCESS)
+PUT {{TaskManagement.Api_HostAddress}}/tasks/{{taskId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "updated task title",
+  "description": "updated description",
+  "isCompleted": true,
+  "isActive": true
+}
+
+### --------------------------------------------------
+### Update task (DUPLICATED TITLE)
+PUT {{TaskManagement.Api_HostAddress}}/tasks/{{taskId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "first task",
+  "description": "this should fail",
+  "isCompleted": false,
+  "isActive": true
+}
+
+### --------------------------------------------------
+### Update task (NOT FOUND)
+PUT {{TaskManagement.Api_HostAddress}}/tasks/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "does not matter",
+  "description": "task does not exist",
+  "isCompleted": false,
+  "isActive": true
+}
+
+### --------------------------------------------------
+### Deactivate task (SUCCESS - soft delete)
+DELETE {{TaskManagement.Api_HostAddress}}/tasks/{{taskId}}
+Accept: application/json
+
+### --------------------------------------------------
+### Deactivate task (NOT FOUND)
+DELETE {{TaskManagement.Api_HostAddress}}/tasks/00000000-0000-0000-0000-000000000000
+Accept: application/json
