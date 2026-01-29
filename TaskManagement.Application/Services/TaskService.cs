@@ -40,7 +40,7 @@ namespace TaskManagement.Application.Services
             };
         }
 
-        public async Task DeleteTask(string id)
+        public async Task DeactivateTask(Guid id)
         {
             var task = await _repository.GetTaskById(id);
             if (task is null)
@@ -48,10 +48,10 @@ namespace TaskManagement.Application.Services
             
             task.IsActive = false;
 
-            await _repository.DeleteTask(task);
+            await _repository.DeactivateTask(task);
         }
 
-        public async Task<TaskResponseDTO?> GetTaskById(string id)
+        public async Task<TaskResponseDTO?> GetTaskById(Guid id)
         {
             var task = await _repository.GetTaskById(id);
             if (task is null)
@@ -87,12 +87,12 @@ namespace TaskManagement.Application.Services
                 }).ToListAsync();
         }
 
-        public async Task<TaskResponseDTO> UpdateTask(TaskRequestDTO taskRequestDTO)
+        public async Task<TaskResponseDTO> UpdateTask(Guid id, TaskRequestDTO taskRequestDTO)
         {
-            if (taskRequestDTO.Id is null)
+            if (taskRequestDTO.Id is null || id != taskRequestDTO.Id.Value)
                 throw new KeyNotFoundException("Id cannot be null");
             
-            var exists = await _repository.GetTaskById(taskRequestDTO.Id.Value.ToString());
+            var exists = await _repository.GetTaskById(taskRequestDTO.Id.Value);
 
             if (exists is null)
                 throw new KeyNotFoundException("Task does not exist");

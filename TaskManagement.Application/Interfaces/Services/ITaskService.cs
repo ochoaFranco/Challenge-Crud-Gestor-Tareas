@@ -5,9 +5,9 @@ namespace TaskManagement.Application.Interfaces.Services
     public interface ITaskService
     {
         Task<IList<TaskResponseDTO>> GetTasks();
-        Task<TaskResponseDTO?> GetTaskById(string id);
+        Task<TaskResponseDTO?> GetTaskById(Guid id);
         Task<TaskResponseDTO> CreateTask(TaskRequestDTO taskRequestDTO);
-        Task<TaskResponseDTO> UpdateTask(TaskRequestDTO taskRequestDTO);
-        Task DeleteTask(string id);
+        Task<TaskResponseDTO> UpdateTask(Guid id, TaskRequestDTO taskRequestDTO);
+        Task DeactivateTask(Guid id);
     }
 }

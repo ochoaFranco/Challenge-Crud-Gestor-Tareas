@@ -21,21 +21,22 @@ namespace TaskManagement.Infraestructure.Repositories
             return task;
         }
 
-        public async Task DeleteTask(TaskItem task)
+        public async Task DeactivateTask(TaskItem task)
         {
             _context.Tasks.Update(task);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<TaskItem?> GetTaskById(string id) => await _context.Tasks.FirstOrDefaultAsync(t => t.Id.ToString() == id);
+        public async Task<TaskItem?> GetTaskById(Guid id) => 
+            await _context.Tasks.FirstOrDefaultAsync(t => (t.Id == id) && t.IsActive);
 
         public IQueryable<TaskItem> GetTasks() => _context.Tasks.AsQueryable();
 
-        public Task<TaskItem> UpdateTask(TaskItem task) 
+        public async Task<TaskItem> UpdateTask(TaskItem task) 
         {
             _context.Tasks.Update(task);
-            _context.SaveChangesAsync();
-            return Task.FromResult(task);
+            await _context.SaveChangesAsync();
+            return task;
         }
     }
 }

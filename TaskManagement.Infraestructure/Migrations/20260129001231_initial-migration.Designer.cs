@@ -12,8 +12,8 @@ using TaskManagement.Infraestructure.Persistence;
 namespace TaskManagement.Infraestructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260128193022_initial-create")]
-    partial class initialcreate
+    [Migration("20260129001231_initial-migration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,7 +52,7 @@ namespace TaskManagement.Infraestructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Title");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedAt");
 

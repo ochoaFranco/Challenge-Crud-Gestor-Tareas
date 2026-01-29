@@ -49,7 +49,7 @@ namespace TaskManagement.Infraestructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Title");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedAt");
 
