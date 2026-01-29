@@ -59,10 +59,10 @@ Las dependencias no están versionadas en el repositorio.
 dotnet restore
 ```
 
-### 4️⃣ Aplicar migraciones y crear la base de datos
+### 4️⃣ Aplicar migraciones y crear la base de datos (seleccionando el proyecto de infrastructure desde la CLI de nugget)
 
 ```bash
-dotnet ef database update
+update-database
 ```
 
 Este paso:
@@ -73,9 +73,7 @@ Este paso:
 
 ### 5️⃣ Ejecutar la API
 
-```bash
-dotnet run
-```
+Darle F5 al proyecto de API
 
 La API estará disponible por defecto en:
 
