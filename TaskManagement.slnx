@@ -2,5 +2,5 @@
   <Project Path="TaskManagement.Api/TaskManagement.Api.csproj" />
   <Project Path="TaskManagement.Application/TaskManagement.Application.csproj" />
   <Project Path="TaskManagement.Domain/TaskManagement.Domain.csproj" />
-  <Project Path="TaskManagement.Infraestructure/TaskManagement.Infraestructure.csproj" />
+  <Project Path="TaskManagement.Infraestructure/TaskManagement.Infrastructure.csproj" />
 </Solution>

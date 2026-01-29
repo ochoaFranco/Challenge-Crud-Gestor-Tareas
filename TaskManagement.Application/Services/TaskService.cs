@@ -2,7 +2,7 @@
 using TaskManagement.Application.DTOs.Task;
 using TaskManagement.Application.Interfaces.Repositories;
 using TaskManagement.Application.Interfaces.Services;
-using TaskManagement.Domain;
+using TaskManagement.Domain.Entities;
 using TaskManagement.Domain.Exceptions;
 
 namespace TaskManagement.Application.Services

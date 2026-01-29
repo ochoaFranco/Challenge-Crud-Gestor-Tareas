@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaskManagement.Domain;
+using TaskManagement.Domain.Entities;
 
 namespace TaskManagement.Infraestructure.Persistence
 {
