@@ -29,7 +29,7 @@ namespace TaskManagement.Application.Services
                 Title = taskRequestDTO.Title.ToLower().Trim(),
                 Description = taskRequestDTO.Description?.ToLower().Trim(),
                 IsCompleted = false,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             };
             
             var createdTask = await _repository.CreateTask(task);
@@ -59,7 +59,7 @@ namespace TaskManagement.Application.Services
         {
             var task = await _repository.GetTaskById(id);
             if (task is null)
-                throw new KeyNotFoundException("The task was the provided ID does not exist");
+                throw new KeyNotFoundException("The task with the provided ID does not exist");
 
             return new TaskResponseDTO
             {
@@ -89,23 +89,16 @@ namespace TaskManagement.Application.Services
 
         public async Task<TaskResponseDTO> UpdateTask(Guid id, TaskRequestDTO taskRequestDTO)
         {
-            if (taskRequestDTO.Id is null || id != taskRequestDTO.Id.Value)
-                throw new KeyNotFoundException("Id cannot be null");
+            var exists = await _repository.GetTaskById(id) ?? throw new KeyNotFoundException("Task does not exist");
+            var isDuplicatedTitle = await _repository.GetTaskByTitle(taskRequestDTO.Title.ToLower().Trim());
             
-            var exists = await _repository.GetTaskById(taskRequestDTO.Id.Value);
-
-            if (exists is null)
-                throw new KeyNotFoundException("Task does not exist");
-
-            var isDuplicatedName = await _repository.GetTaskByTitle(taskRequestDTO.Title.ToLower().Trim());
-            
-            if (isDuplicatedName != null)
+            if (isDuplicatedTitle != null && isDuplicatedTitle.Id != exists.Id)
                 throw new DuplicatedTaskTitleException("Title must be unique");
 
             exists.Title = taskRequestDTO.Title.ToLower().Trim();
             exists.Description = taskRequestDTO.Description?.ToLower().Trim(); 
             exists.IsCompleted = taskRequestDTO.IsCompleted;
-            exists.UpdatedAt = DateTime.Now;
+            exists.UpdatedAt = DateTime.UtcNow;
             exists.IsActive = taskRequestDTO.IsActive;
             
             var updatedTask = await _repository.UpdateTask(exists);
