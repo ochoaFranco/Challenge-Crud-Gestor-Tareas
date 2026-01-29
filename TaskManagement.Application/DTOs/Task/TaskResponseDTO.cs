@@ -8,8 +8,6 @@ namespace TaskManagement.Application.DTOs.Task
         public String Title { get; set; }
         public String? Description { get; set; }
         public bool? IsCompleted { get; set; }
-        public DateTime CreatedAt { get; set; } 
-        public DateTime? UpdatedAt { get; set; }
         public bool IsActive { get; set; }
     }
 }

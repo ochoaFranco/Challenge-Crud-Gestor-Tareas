@@ -29,7 +29,7 @@ namespace TaskManagement.Application.Services
                 Title = taskRequestDTO.Title.ToLower().Trim(),
                 Description = taskRequestDTO.Description?.ToLower().Trim(),
                 IsCompleted = false,
-                CreatedAt = taskRequestDTO.CreatedAt
+                CreatedAt = DateTime.Now
             };
             
             var createdTask = await _repository.CreateTask(task);
@@ -39,9 +39,7 @@ namespace TaskManagement.Application.Services
                 Id = createdTask.Id,
                 Title = createdTask.Title,
                 Description = createdTask.Description,
-                CreatedAt = DateTime.UtcNow,
                 IsCompleted = createdTask.IsCompleted,
-                UpdatedAt = createdTask.UpdatedAt,
                 IsActive = createdTask.IsActive
             };
         }
@@ -69,8 +67,6 @@ namespace TaskManagement.Application.Services
                 Title = task.Title,
                 Description = task.Description,
                 IsCompleted = task.IsCompleted,
-                CreatedAt = task.CreatedAt,
-                UpdatedAt = task.UpdatedAt,
                 IsActive = task.IsActive
             };
         }
@@ -87,8 +83,6 @@ namespace TaskManagement.Application.Services
                     Title = t.Title,
                     Description = t.Description,
                     IsCompleted= t.IsCompleted,
-                    CreatedAt= t.CreatedAt,
-                    UpdatedAt = t.UpdatedAt,
                     IsActive = t.IsActive
                 }).ToListAsync();
         }
@@ -111,7 +105,7 @@ namespace TaskManagement.Application.Services
             exists.Title = taskRequestDTO.Title.ToLower().Trim();
             exists.Description = taskRequestDTO.Description?.ToLower().Trim(); 
             exists.IsCompleted = taskRequestDTO.IsCompleted;
-            exists.UpdatedAt = DateTime.UtcNow;
+            exists.UpdatedAt = DateTime.Now;
             exists.IsActive = taskRequestDTO.IsActive;
             
             var updatedTask = await _repository.UpdateTask(exists);
@@ -122,8 +116,6 @@ namespace TaskManagement.Application.Services
                 Title = updatedTask.Title,
                 Description = updatedTask.Description,
                 IsCompleted = updatedTask.IsCompleted,
-                CreatedAt = updatedTask.CreatedAt,
-                UpdatedAt = updatedTask.UpdatedAt,
                 IsActive = updatedTask.IsActive
             };
         }

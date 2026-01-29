@@ -27,6 +27,7 @@ namespace TaskManagement.Api
                 statusCode: status,
                 title: title,
                 detail: detail,
+                type:$"https://httpstatuses.com/{status}",
                 instance: httpContext.Request.Path
                 ).ExecuteAsync(httpContext);
 
