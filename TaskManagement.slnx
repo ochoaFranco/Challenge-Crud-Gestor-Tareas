@@ -3,4 +3,5 @@
   <Project Path="TaskManagement.Application/TaskManagement.Application.csproj" />
   <Project Path="TaskManagement.Domain/TaskManagement.Domain.csproj" />
   <Project Path="TaskManagement.Infraestructure/TaskManagement.Infrastructure.csproj" />
+  <Project Path="TaskManagement.Test/TaskManagement.Test.csproj" Id="1a10b404-13fa-4a4e-97dd-a02c68a2a251" />
 </Solution>
