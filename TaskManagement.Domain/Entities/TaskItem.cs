@@ -6,7 +6,7 @@ namespace TaskManagement.Domain.Entities
     [Table("Task")]
     public class TaskItem : BaseEntity
     {
-        [Required, Column("Title")]
+        [Required, Column("Titlee")]
         public String Title { get; set; }
        
         [Column("Description")]
